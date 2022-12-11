@@ -21,7 +21,8 @@ SOURCES += \
         mainwindow.cpp \
     game.cpp \
     gameobject.cpp \
-    player.cpp
+    player.cpp \
+    ticket.cpp
 
 HEADERS += \
         mainwindow.h \
