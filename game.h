@@ -10,26 +10,38 @@
 #include <QMessageBox>
 #include "gameobject.h"
 #include <QRandomGenerator>
-
+#include <QList>
+#include <QMouseEvent>
+#include <QEvent>
+#include <QDebug>
+#include <QMouseEvent>
+#include <QGraphicsSceneMouseEvent>
 
 class Game: public QGraphicsScene
 {
     Q_OBJECT
 public:
-    enum GameStatus {Playing, Win, Lose, Pause};
+    enum GameStatus {Playing, Win, Lose, Pause, Question};
     Game(int, int, int, int, QString);
     ~Game();
 
+    void mousePressEvent(QGraphicsSceneMouseEvent*) override;
     void start();
     void stop();
     GameObject ***map;
     GameStatus stat;
+    Ticket *ticket;
     Player *player;
+    Ticket *card;
+    QVector<Ticket*> cards;
+    QGraphicsSceneMouseEvent *event;
     int lifePlayer = 0;
     int action = 0;
     void cheakHP();
     int giveAction();
+    QVector<QVector<int>> x_y_Inv;
     friend class Player;
+    friend class Ticket;
 private slots:
 
 private:
