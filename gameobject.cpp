@@ -24,22 +24,6 @@ void GameObject::set_score(int s)
 {
     score = s;
 }
-void GameObject::set_dir(Dir d)
-{
-    dir = d;
-}
-void GameObject::set_next_dir(Dir d)
-{
-    next_dir = d;
-}
-GameObject::Dir GameObject::get_dir()
-{
-    return dir;
-}
-GameObject::Dir GameObject::get_next_dir()
-{
-    return next_dir;
-}
 GameObject::~GameObject()
 {
 }
