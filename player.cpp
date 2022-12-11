@@ -2,19 +2,21 @@
 #define W (GameObject::Width)
 
 Player::Player() : GameObject(
-    GameObject::Player, QPixmap("C:\\Users\\Zalman N3\\Desktop\\game\\game\\res\\image\\catFront.png"))
+    GameObject::Player, QPixmap(":/image/catFront.png"))
 {
-     dir = Stop;
-     next_dir = Stop;
-     anim_index = 0;
-     anim[Right].push_back(QPixmap("C:\\Users\\Zalman N3\\Desktop\\game\\game\\res\\image\\catRight.png"));
+     anim[Right].push_back(QPixmap(":/image/catRight.png"));
 
-     anim[Up].push_back(QPixmap("C:\\Users\\Zalman N3\\Desktop\\game\\game\\res\\image\\catBack.png"));
+     anim[Up].push_back(QPixmap(":/image/catBack.png"));
 
-     anim[Left].push_back(QPixmap("C:\\Users\\Zalman N3\\Desktop\\game\\game\\res\\image\\catLeft.png"));
+     anim[Left].push_back(QPixmap(":/image/catLeft.png"));
 
-     anim[Down].push_back(QPixmap("C:\\Users\\Zalman N3\\Desktop\\game\\game\\res\\image\\catFront.png"));
+     anim[Down].push_back(QPixmap(":/image/catFront.png"));
 
+     vecIn = new ObjectType[6];
+     for(int i = 0; i < 10; i++)
+     {
+         vecIn[i] = None;
+     }
 }
 void Player::cheakToWin()
 {
@@ -32,6 +34,14 @@ void Player::cheakToWin()
             break;
         }
     }
+}
+void Player::addToInv(ObjectType type, int i, int j, int k)
+{
+    vecIn[k] = type;
+    game->ticket->cards[game->geo_y][game->geo_x]->setPixmap(game->ticket->animCard[Air][0]);
+    game->ticket->cardMap[game->geo_y][game->geo_x] = GameObject::None;
+    game->ticket->cardMap[i][j] = type;
+    game->ticket->cards[i][j]->setPixmap(game->ticket->animInv[type][0]);
 }
 void Player::moveup()
 {
@@ -72,12 +82,24 @@ bool Player::overlapable(int i, int j)
     case Door:
         return true;
     case Air:
+        return true;
     case Winplace:
         cheakToWin();
         if(game->map[i][j]->get_type() == Winplace && Car_Keys == true && Canister_of_gas == true)
         {
             game->stat = Game::Win;
         }
+        return true;
+    case Ticket:
+        if(game->ticket->cardMap[i][j] != GameObject::Air)
+        {
+            game->ticket->cards[i][j]->setAnimTicket(i, j);
+            if(game->ticket->cardMap[i][j] != GameObject::Zombie && game->ticket->cardMap[i][j] != GameObject::None)
+            {
+                game->stat = Game::Question;
+            }
+        }
+        return true;
     default:
         return true;
     }
@@ -86,44 +108,52 @@ void Player::player_move_up()
 {
     int hero_x = static_cast<int>(x());
     int hero_y = static_cast<int>(y());
-    int __x = (hero_x - game->geo_x) / W;
-    int __y = (hero_y - game->geo_y) / W;
+    int __x = (hero_x) / W;
+    int __y = (hero_y) / W;
     if(overlapable(__y - 1, __x))
     {
         moveup();
+        game->geo_x = __x;
+        game->geo_y = __y - 1;
     }
 }
 void Player::player_move_down()
 {
     int hero_x = static_cast<int>(x());
     int hero_y = static_cast<int>(y());
-    int __x = (hero_x - game->geo_x) / W;
-    int __y = (hero_y - game->geo_y) / W;
+    int __x = (hero_x) / W;
+    int __y = (hero_y) / W;
 
     if(overlapable(__y + 1, __x))
     {
         movedown();
+        game->geo_x = __x;
+        game->geo_y = __y + 1;
     }
 }
 void Player::player_move_left()
 {
     int hero_x = static_cast<int>(x());
     int hero_y = static_cast<int>(y());
-    int __x = (hero_x - game->geo_x) / W;
-    int __y = (hero_y - game->geo_y) / W;
-    if((hero_x + game->geo_x) % W == 0 && overlapable(__y, __x - 1))
+    int __x = (hero_x) / W;
+    int __y = (hero_y) / W;
+    if((hero_x) % W == 0 && overlapable(__y, __x - 1))
     {
         moveleft();
+        game->geo_x = __x - 1;
+        game->geo_y = __y;
     }
 }
 void Player::player_move_right()
 {
     int hero_x = static_cast<int>(x());
     int hero_y = static_cast<int>(y());
-    int __x = (hero_x - game->geo_x) / W;
-    int __y = (hero_y - game->geo_y) / W;
-    if((hero_x + game->geo_x) % W == 0 && overlapable(__y, __x + 1))
+    int __x = (hero_x) / W;
+    int __y = (hero_y) / W;
+    if((hero_x) % W == 0 && overlapable(__y, __x + 1))
     {
         moveright();
+        game->geo_x = __x + 1;
+        game->geo_y = __y;
     }
 }
