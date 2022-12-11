@@ -6,14 +6,14 @@
 #include <QGraphicsItem>
 #include <QTimer>
 #include <QVector>
-
+#include <QList>
 class Game;
 
 class GameObject : public QGraphicsPixmapItem
 {
 public:
-    enum ObjectType {Wall, Player, Air, Door, Winplace, Heal, Keys, Canister, Gun, None};
-    enum Dir {Up = 0, Down = 1, Left = 2, Right = 3, Stop = 4, DoorDir = 0};
+    enum ObjectType {Zombie = 0, Pistol = 1, Knife = 2, Heal = 3, Keys = 4, Canister = 5, Air = 6, Gun = 7, None = 8, Wall, Player, Ticket, Door, Winplace, Heart};
+    enum Dir {Up = 0, Down = 1, Left = 2, Right = 3, Stop = 4};
     static const int Width = 32;
 
     GameObject(ObjectType, QPixmap);
@@ -24,16 +24,10 @@ public:
     int get_y();
     int get_score();
     void set_score(int);
-    void set_dir(Dir);
-    void set_next_dir(Dir);
-    Dir get_dir();
-    Dir get_next_dir();
 
     friend class Game;
 protected:
     int _x, _y;
-    Dir dir;
-    Dir next_dir;
     ObjectType type;
     int score;
 
@@ -56,10 +50,41 @@ private:
     void moveright();
     bool overlapable(int, int);
     void cheakToWin();
+    void addToInv(ObjectType,int,int, int);
     QVector<QPixmap> anim[4];
-    QVector<ObjectType> vecIn = {None, None, None, None, Canister, Keys};
+    ObjectType *vecIn;
+    //QVector<ObjectType> vecIn = {None, None, None, None, None, None};
     bool Car_Keys = false;
     bool Canister_of_gas = false;
-    int anim_index;
+};
+
+class Ticket: public GameObject
+{
+public:
+    Ticket(ObjectType);
+    void anim();
+    void healAction();
+    ObjectType randTicket();
+    ObjectType noneTicket();
+    void setAnimTicket(int i, int j);
+    QVector<QVector<ObjectType>> cardMap;
+    QVector<QVector<Ticket*>> cards;
+    Game *game;
+    int tickets = 46;
+    friend class game;
+    friend class Inventory;
+    QVector<QPixmap> animCard[10];
+    QVector<QPixmap> animInv[10];
+private:
+
+    QVector<ObjectType> winItems = {Keys, Canister};
+    QVector<ObjectType> zombies = {Zombie, Zombie, Zombie, Zombie, Zombie, Zombie, Zombie, Zombie, Zombie,
+                                  Zombie, Zombie, Zombie, Zombie, Zombie, Zombie, Zombie, Zombie, Zombie,
+                                  Zombie, Zombie, Zombie, Zombie, Zombie, Zombie, Zombie, Zombie, Zombie,
+                                  Zombie};
+    QVector<ObjectType> guns = {Pistol, Knife, Pistol, Knife, Pistol, Knife, Pistol, Knife, Pistol, Knife};
+    QVector<ObjectType> firstAidKit = {Heal, Heal, Heal, Heal, Heal, Heal};
+
+
 };
 #endif // GAMEOBJECT_H
