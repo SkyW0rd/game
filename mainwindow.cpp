@@ -36,10 +36,10 @@ void MainWindow::fullScreenAction()
 }
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
-    if(ui->stackedWidget->currentIndex() == 1)
+    if(ui->stackedWidget->currentIndex() == 1 && game->stat != Game::Question)
     {
-        if(game->action != 0)
-        {
+        //if(game->action != 0)
+        //{
             switch(e->key())
             {
             case Qt::Key_W:
@@ -63,8 +63,8 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
                 ui->label->setText(QString::number(game->action));
                 break;
             }
-        }
-        else
+        //}
+        /*else
         {
             QMessageBox::StandardButton reply;
                 reply = QMessageBox::question(this, "Action", "Do u need action?", QMessageBox::Yes | QMessageBox::No);
@@ -76,7 +76,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             {
                 QMessageBox::warning(this, "Action", "PLEASE, TAKE ACTION!!!");
             }
-        }
+        }*/
     }
 }
 void MainWindow::update_score()
@@ -118,17 +118,18 @@ void MainWindow::initLabels()
 }
 void MainWindow::playAction()
 {
+    //qDebug() << game->player->vecIn.size();
     ui->stackedWidget->setCurrentIndex(1);
     ui->graphicsView->setStyleSheet("QGraphicsView {boreder: none;}");
     ui->graphicsView->setBackgroundBrush(Qt::gray);
     ui->graphicsView->setFocusPolicy(Qt::NoFocus);
 
-    int map_height = 16, map_width = 26;
+    int map_height = 16, map_width = 27;
     int x = 0, y = 0;
     int w = (map_width * GameObject::Width);
     int h = (map_height * GameObject::Width);
     ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, "C:\\Users\\Zalman N3\\Desktop\\game\\game\\res\\map.txt");
+    game = new Game(x, y, map_width, map_height, ":/map.txt");
     ui->graphicsView->setScene(game);
     score = new QLabel(this);
     win_label =  new QLabel(this);
