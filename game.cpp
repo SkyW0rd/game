@@ -453,10 +453,10 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
                         lifePlayer++;
+                        ticket->cardMap[x_y_Inv[1][0]][x_y_Inv[1][1]] = GameObject::Gun;
+                        ticket->cards[x_y_Inv[1][0]][x_y_Inv[1][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
                     }
                 }
-                ticket->cardMap[x_y_Inv[0][0]][x_y_Inv[0][1]] = GameObject::Gun;
-                ticket->cards[x_y_Inv[0][0]][x_y_Inv[0][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
             }
         }
         else if(e->scenePos().x() >= 672 && e->scenePos().x() <= 703 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
@@ -469,10 +469,10 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
                         lifePlayer++;
+                        ticket->cardMap[x_y_Inv[1][0]][x_y_Inv[1][1]] = GameObject::Gun;
+                        ticket->cards[x_y_Inv[1][0]][x_y_Inv[1][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
                     }
                 }
-                ticket->cardMap[x_y_Inv[1][0]][x_y_Inv[1][1]] = GameObject::Gun;
-                ticket->cards[x_y_Inv[1][0]][x_y_Inv[1][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
             }
         }
         else if(e->scenePos().x() >= 704 && e->scenePos().x() <= 735 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
@@ -485,10 +485,10 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
                         lifePlayer++;
+                        ticket->cardMap[x_y_Inv[2][0]][x_y_Inv[2][1]] = GameObject::Gun;
+                        ticket->cards[x_y_Inv[2][0]][x_y_Inv[2][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
                     }
                 }
-                ticket->cardMap[x_y_Inv[2][0]][x_y_Inv[2][1]] = GameObject::Gun;
-                ticket->cards[x_y_Inv[2][0]][x_y_Inv[2][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
             }
         }
         else if(e->scenePos().x() >= 736 && e->scenePos().x() <= 767 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
@@ -501,10 +501,10 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
                         lifePlayer++;
+                        ticket->cardMap[x_y_Inv[3][0]][x_y_Inv[3][1]] = GameObject::Gun;
+                        ticket->cards[x_y_Inv[3][0]][x_y_Inv[3][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
                     }
                 }
-                ticket->cardMap[x_y_Inv[3][0]][x_y_Inv[3][1]] = GameObject::Gun;
-                ticket->cards[x_y_Inv[3][0]][x_y_Inv[3][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
             }
         }
         else if(e->scenePos().x() >= 768 && e->scenePos().x() <= 799 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
@@ -517,10 +517,10 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
                         lifePlayer++;
+                        ticket->cardMap[x_y_Inv[4][0]][x_y_Inv[4][1]] = GameObject::Gun;
+                        ticket->cards[x_y_Inv[4][0]][x_y_Inv[4][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
                     }
                 }
-                ticket->cardMap[x_y_Inv[4][0]][x_y_Inv[4][1]] = GameObject::Gun;
-                ticket->cards[x_y_Inv[4][0]][x_y_Inv[4][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
             }
         }
         else if(e->scenePos().x() >= 800 && e->scenePos().x() <= 831 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
@@ -534,10 +534,10 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
                         lifePlayer++;
+                        ticket->cardMap[x_y_Inv[5][0]][x_y_Inv[5][1]] = GameObject::Gun;
+                        ticket->cards[x_y_Inv[5][0]][x_y_Inv[5][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
                     }
                 }
-                ticket->cardMap[x_y_Inv[5][0]][x_y_Inv[5][1]] = GameObject::Gun;
-                ticket->cards[x_y_Inv[5][0]][x_y_Inv[5][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
             }
         }
     }
