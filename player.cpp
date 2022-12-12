@@ -98,6 +98,10 @@ bool Player::overlapable(int i, int j)
             {
                 game->stat = Game::Question;
             }
+            else if(game->ticket->cardMap[i][j] == GameObject::Zombie && game->ticket->cardMap[i][j] != GameObject::None)
+            {
+                game->stat = Game::MiniGame;
+            }
         }
         return true;
     default:

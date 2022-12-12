@@ -36,7 +36,7 @@ void MainWindow::fullScreenAction()
 }
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
-    if(ui->stackedWidget->currentIndex() == 1 && game->stat != Game::Question)
+    if(ui->stackedWidget->currentIndex() == 1 && game->stat != Game::Question && game->stat != Game::MiniGame)
     {
         //if(game->action != 0)
         //{

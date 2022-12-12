@@ -21,7 +21,7 @@ class Game: public QGraphicsScene
 {
     Q_OBJECT
 public:
-    enum GameStatus {Playing, Win, Lose, Pause, Question};
+    enum GameStatus {Playing, Win, Lose, Pause, Question, MiniGame};
     Game(int, int, int, int, QString);
     ~Game();
 
@@ -39,7 +39,9 @@ public:
     int action = 0;
     void cheakHP();
     int giveAction();
+    void miniGame();
     QVector<QVector<int>> x_y_Inv;
+    QVector<QVector<int>> x_y_Heart;
     friend class Player;
     friend class Ticket;
 private slots:

@@ -36,6 +36,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src):QGraphicsScene(x
     QPixmap winplacepix(":/image/winplace.png");
     QPixmap heartpix(":/image/heart.png");
     QPixmap facepix(":/image/head.png");
+    QPixmap gameButtonpix(":/image/gamebutton.png");
     QFile mapfile(map_src);
     mapfile.open(QIODevice::ReadOnly | QIODevice::Text);
     for(int i = 0; i < map_h; i++)
@@ -46,6 +47,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src):QGraphicsScene(x
             int tmp_x = x + (j * W);
             int tmp_y = y + (i * W);
             QVector<int> temp_x_y_Inv;
+            QVector<int> tempXY;
             switch(line[j])
             {
                 case '0':
@@ -107,7 +109,6 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src):QGraphicsScene(x
                     map[i][j] = card;
                     ticket->cardMap[i][j] = GameObject::Gun;
                     ticket->cards[i][j] = card;
-                    qDebug() << tmp_x << " " << tmp_y;
                     temp_x_y_Inv.push_back(i);
                     temp_x_y_Inv.push_back(j);
                     x_y_Inv.push_back(temp_x_y_Inv);
@@ -132,15 +133,29 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src):QGraphicsScene(x
                     addItem(map[i][j]);
                     break;
                 case 'h':
-                    map[i][j] = new GameObject(GameObject::Wall, heartpix);
-                    map[i][j]->setPos(tmp_x, tmp_y);
-                    addItem(map[i][j]);
+                    card = new Ticket(GameObject::Heart);
+                    card->game = this;
+                    card->setZValue(1);
+                    card->setPos(tmp_x, tmp_y);
+                    addItem(card);
+                    map[i][j] = card;
+                    ticket->cardMap[i][j] = GameObject::Heart;
+                    ticket->cards[i][j] = card;
                     lifePlayer++;
+                    tempXY.push_back(i);
+                    tempXY.push_back(j);
+                    x_y_Heart.push_back(tempXY);
                     break;
                 case 'f':
                     map[i][j] = new GameObject(GameObject::Wall, facepix);
                     map[i][j]->setPos(tmp_x, tmp_y);
                     addItem(map[i][j]);
+                    break;
+                case 'b':
+                    map[i][j] = new GameObject(GameObject::Air, gameButtonpix);
+                    map[i][j]->setPos(tmp_x, tmp_y);
+                    addItem(map[i][j]);
+                    qDebug() << tmp_x << " " << tmp_y;
                     break;
             }
             if(map[i][j])
@@ -157,8 +172,8 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
     {
         if(e->scenePos().x() >= 640 && e->scenePos().x() <= 671 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
         {
-            int X = (static_cast<int>(e->scenePos().x()) - geo_x) / W;
-            int Y = (static_cast<int>(e->scenePos().y()) - geo_y) / W;
+            int X = (static_cast<int>(e->scenePos().x())) / W;
+            int Y = (static_cast<int>(e->scenePos().y())) / W;
             if(ticket->cardMap[Y][X] == GameObject::Gun)
             {
                 player->addToInv(ticket->cardMap[geo_y][geo_x], Y, X, 0);
@@ -180,8 +195,8 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
         }
         if(e->scenePos().x() >= 672 && e->scenePos().x() <= 703 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
         {
-            int X = (static_cast<int>(e->scenePos().x()) - geo_x) / W;
-            int Y = (static_cast<int>(e->scenePos().y()) - geo_y) / W;
+            int X = (static_cast<int>(e->scenePos().x())) / W;
+            int Y = (static_cast<int>(e->scenePos().y())) / W;
             if(ticket->cardMap[Y][X] == GameObject::Gun)
             {
                 player->addToInv(ticket->cardMap[geo_y][geo_x], Y, X, 1);
@@ -203,8 +218,8 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
         }
         else if(e->scenePos().x() >= 704 && e->scenePos().x() <= 735 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
         {
-            int X = (static_cast<int>(e->scenePos().x()) - geo_x) / W;
-            int Y = (static_cast<int>(e->scenePos().y()) - geo_y) / W;
+            int X = (static_cast<int>(e->scenePos().x())) / W;
+            int Y = (static_cast<int>(e->scenePos().y())) / W;
             if(ticket->cardMap[Y][X] == GameObject::Gun)
             {
                 player->addToInv(ticket->cardMap[geo_y][geo_x], Y, X, 2);
@@ -226,8 +241,8 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
         }
         else if(e->scenePos().x() >= 736 && e->scenePos().x() <= 767 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
         {
-            int X = (static_cast<int>(e->scenePos().x()) - geo_x) / W;
-            int Y = (static_cast<int>(e->scenePos().y()) - geo_y) / W;
+            int X = (static_cast<int>(e->scenePos().x())) / W;
+            int Y = (static_cast<int>(e->scenePos().y())) / W;
             if(ticket->cardMap[Y][X] == GameObject::Gun)
             {
                 player->addToInv(ticket->cardMap[geo_y][geo_x], Y, X, 3);
@@ -249,8 +264,8 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
         }
         else if(e->scenePos().x() >= 768 && e->scenePos().x() <= 799 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
         {
-            int X = (static_cast<int>(e->scenePos().x()) - geo_x) / W;
-            int Y = (static_cast<int>(e->scenePos().y()) - geo_y) / W;
+            int X = (static_cast<int>(e->scenePos().x())) / W;
+            int Y = (static_cast<int>(e->scenePos().y())) / W;
             if(ticket->cardMap[Y][X] == GameObject::Gun)
             {
                 player->addToInv(ticket->cardMap[geo_y][geo_x], Y, X, 4);
@@ -272,8 +287,8 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
         }
         else if(e->scenePos().x() >= 800 && e->scenePos().x() <= 831 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
         {
-            int X = (static_cast<int>(e->scenePos().x()) - geo_x) / W;
-            int Y = (static_cast<int>(e->scenePos().y()) - geo_y) / W;
+            int X = (static_cast<int>(e->scenePos().x())) / W;
+            int Y = (static_cast<int>(e->scenePos().y())) / W;
             if(ticket->cardMap[Y][X] == GameObject::Gun)
             {
                 player->addToInv(ticket->cardMap[geo_y][geo_x], Y, X, 5);
@@ -293,6 +308,245 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
             }
             stat = Game::Playing;
         }
+    }
+    else if(stat == Game::MiniGame)
+    {
+        if(e->scenePos().x() >= 640 && e->scenePos().x() <= 671 && e->scenePos().y() >= 128 && e->scenePos().y() <= 159)
+        {
+            int rand = (qrand() % ((10 + 1) - 1) + 1);
+            bool flag = false;
+            switch(rand)
+            {
+                case 1:
+                    lifePlayer--;
+                    if(lifePlayer != 0)
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
+                    }
+                    else
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
+                        stat = Game::Lose;
+                    }
+                    break;
+                case 2:
+                    lifePlayer--;
+                    if(lifePlayer != 0)
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
+                    }
+                    else
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
+                        stat = Game::Lose;
+                    }
+                    break;
+                case 3:
+                    lifePlayer--;
+                    if(lifePlayer != 0)
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
+                    }
+                    else
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
+                        stat = Game::Lose;
+                    }
+                    break;
+                case 4:
+                    for(int k = 0; k < 6; k++)
+                    {
+                        if(player->vecIn[k] == GameObject::Pistol && flag == false)
+                        {
+                            ticket->cardMap[x_y_Inv[k][0]][x_y_Inv[k][1]] = GameObject::Gun;
+                            ticket->cards[x_y_Inv[k][0]][x_y_Inv[k][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+
+                            ticket->cardMap[geo_y][geo_x] = GameObject::None;
+                            ticket->cards[geo_y][geo_x]->setPixmap(ticket->animCard[GameObject::Air][0]);
+
+                            flag = true;
+                            player->vecIn[k] = GameObject::None;
+                            stat = Game::Playing;
+                        }
+                    }
+                    break;
+                case 5:
+                    for(int k = 0; k < 6; k++)
+                    {
+                        if(player->vecIn[k] == GameObject::Pistol && flag == false)
+                        {
+                            ticket->cardMap[x_y_Inv[k][0]][x_y_Inv[k][1]] = GameObject::Gun;
+                            ticket->cards[x_y_Inv[k][0]][x_y_Inv[k][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+
+                            ticket->cardMap[geo_y][geo_x] = GameObject::None;
+                            ticket->cards[geo_y][geo_x]->setPixmap(ticket->animCard[GameObject::Air][0]);
+
+                            flag = true;
+                            player->vecIn[k] = GameObject::None;
+                            stat = Game::Playing;
+                            break;
+                        }
+                    }
+                    break;
+                case 6:
+                    for(int k = 0; k < 6; k++)
+                    {
+                        if(player->vecIn[k] == GameObject::Knife && flag == false)
+                        {
+                            ticket->cardMap[x_y_Inv[k][0]][x_y_Inv[k][1]] = GameObject::Gun;
+                            ticket->cards[x_y_Inv[k][0]][x_y_Inv[k][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+
+                            ticket->cardMap[geo_y][geo_x] = GameObject::None;
+                            ticket->cards[geo_y][geo_x]->setPixmap(ticket->animCard[GameObject::Air][0]);
+
+                            flag = true;
+                            player->vecIn[k] = GameObject::None;
+                            stat = Game::Playing;
+                            break;
+                        }
+                    }
+                    break;
+                case 7:
+                    for(int k = 0; k < 6; k++)
+                    {
+                        if(player->vecIn[k] == GameObject::Knife && flag == false)
+                        {
+                            ticket->cardMap[x_y_Inv[k][0]][x_y_Inv[k][1]] = GameObject::Gun;
+                            ticket->cards[x_y_Inv[k][0]][x_y_Inv[k][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+
+                            ticket->cardMap[geo_y][geo_x] = GameObject::None;
+                            ticket->cards[geo_y][geo_x]->setPixmap(ticket->animCard[GameObject::Air][0]);
+
+                            flag = true;
+                            player->vecIn[k] = GameObject::None;
+                            stat = Game::Playing;
+                            break;
+                        }
+                    }
+                    break;
+                case 8:
+                    stat = Game::Playing;
+                    break;
+                case 9:
+                    stat = Game::Playing;
+                    break;
+                case 10:
+                    stat = Game::Playing;
+                    break;
+                default:
+                    stat = Game::Playing;
+                    break;
+            }
+        }
+    }
+    else if(stat == Game::Playing)
+    {
+        int X = (static_cast<int>(e->scenePos().x())) / W;
+        int Y = (static_cast<int>(e->scenePos().y())) / W;
+        if(e->scenePos().x() >= 640 && e->scenePos().x() <= 671 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
+        {
+            if(ticket->cardMap[Y][X] == GameObject::Heal)
+            {
+                for(int i = 0 ; i < 2; i++)
+                {
+                    if(lifePlayer != 5)
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
+                        lifePlayer++;
+                    }
+                }
+                ticket->cardMap[x_y_Inv[0][0]][x_y_Inv[0][1]] = GameObject::Gun;
+                ticket->cards[x_y_Inv[0][0]][x_y_Inv[0][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+            }
+        }
+        else if(e->scenePos().x() >= 672 && e->scenePos().x() <= 703 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
+        {
+            if(ticket->cardMap[Y][X] == GameObject::Heal)
+            {
+                for(int i = 0 ; i < 2; i++)
+                {
+                    if(lifePlayer != 5)
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
+                        lifePlayer++;
+                    }
+                }
+                ticket->cardMap[x_y_Inv[1][0]][x_y_Inv[1][1]] = GameObject::Gun;
+                ticket->cards[x_y_Inv[1][0]][x_y_Inv[1][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+            }
+        }
+        else if(e->scenePos().x() >= 704 && e->scenePos().x() <= 735 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
+        {
+            if(ticket->cardMap[Y][X] == GameObject::Heal)
+            {
+                for(int i = 0 ; i < 2; i++)
+                {
+                    if(lifePlayer != 5)
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
+                        lifePlayer++;
+                    }
+                }
+                ticket->cardMap[x_y_Inv[2][0]][x_y_Inv[2][1]] = GameObject::Gun;
+                ticket->cards[x_y_Inv[2][0]][x_y_Inv[2][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+            }
+        }
+        else if(e->scenePos().x() >= 736 && e->scenePos().x() <= 767 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
+        {
+            if(ticket->cardMap[Y][X] == GameObject::Heal)
+            {
+                for(int i = 0 ; i < 2; i++)
+                {
+                    if(lifePlayer != 5)
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
+                        lifePlayer++;
+                    }
+                }
+                ticket->cardMap[x_y_Inv[3][0]][x_y_Inv[3][1]] = GameObject::Gun;
+                ticket->cards[x_y_Inv[3][0]][x_y_Inv[3][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+            }
+        }
+        else if(e->scenePos().x() >= 768 && e->scenePos().x() <= 799 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
+        {
+            if(ticket->cardMap[Y][X] == GameObject::Heal)
+            {
+                for(int i = 0 ; i < 2; i++)
+                {
+                    if(lifePlayer != 5)
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
+                        lifePlayer++;
+                    }
+                }
+                ticket->cardMap[x_y_Inv[4][0]][x_y_Inv[4][1]] = GameObject::Gun;
+                ticket->cards[x_y_Inv[4][0]][x_y_Inv[4][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+            }
+        }
+        else if(e->scenePos().x() >= 800 && e->scenePos().x() <= 831 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
+        {
+            qDebug() << lifePlayer;
+            if(ticket->cardMap[Y][X] == GameObject::Heal)
+            {
+                for(int i = 0 ; i < 2; i++)
+                {
+                    if(lifePlayer != 5)
+                    {
+                        ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
+                        lifePlayer++;
+                    }
+                }
+                ticket->cardMap[x_y_Inv[5][0]][x_y_Inv[5][1]] = GameObject::Gun;
+                ticket->cards[x_y_Inv[5][0]][x_y_Inv[5][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+            }
+        }
+    }
+}
+void Game::miniGame()
+{
+    if(stat == Game::MiniGame)
+    {
+
     }
 }
 void Game::start()

@@ -75,6 +75,7 @@ public:
     friend class Inventory;
     QVector<QPixmap> animCard[10];
     QVector<QPixmap> animInv[10];
+    QVector<QPixmap> animHeart;
 private:
 
     QVector<ObjectType> winItems = {Keys, Canister};
