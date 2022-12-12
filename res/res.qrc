@@ -1,0 +1,38 @@
+<RCC>
+    <qresource prefix="/">
+        <file>map.txt</file>
+        <file>image/catBack.png</file>
+        <file>image/catFront.png</file>
+        <file>image/catLeft.png</file>
+        <file>image/catRight.png</file>
+        <file>image/door.png</file>
+        <file>image/dooropen.png</file>
+        <file>image/earth1.png</file>
+        <file>image/field.png</file>
+        <file>image/floor.png</file>
+        <file>image/floor1.png</file>
+        <file>image/head.png</file>
+        <file>image/heart.png</file>
+        <file>image/heart1.png</file>
+        <file>image/inventory.png</file>
+        <file>image/wall.png</file>
+        <file>image/winplace.png</file>
+        <file>image/button.png</file>
+        <file>image/images.jpg</file>
+        <file>image/1616042210_20-p-pikselnii-fon-dlya-igri-22.jpg</file>
+        <file>image/surprise.png</file>
+        <file>image/firstAidKit.png</file>
+        <file>image/knife.png</file>
+        <file>image/weapon.png</file>
+        <file>image/canister.png</file>
+        <file>image/key.png</file>
+        <file>image/air.png</file>
+        <file>image/canisterInv.png</file>
+        <file>image/firstAidKitInv.png</file>
+        <file>image/keyInv.png</file>
+        <file>image/knifeInv.png</file>
+        <file>image/weaponInv.png</file>
+        <file>image/zombie.png</file>
+        <file>image/gamebutton.png</file>
+    </qresource>
+</RCC>
