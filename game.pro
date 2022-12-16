@@ -22,7 +22,7 @@ SOURCES += \
     game.cpp \
     gameobject.cpp \
     player.cpp \
-    ticket.cpp \
+    ticket.cpp
 
 HEADERS += \
         mainwindow.h \

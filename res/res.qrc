@@ -17,7 +17,6 @@
         <file>image/inventory.png</file>
         <file>image/wall.png</file>
         <file>image/winplace.png</file>
-        <file>image/button.png</file>
         <file>image/images.jpg</file>
         <file>image/1616042210_20-p-pikselnii-fon-dlya-igri-22.jpg</file>
         <file>image/surprise.png</file>
@@ -34,5 +33,8 @@
         <file>image/weaponInv.png</file>
         <file>image/zombie.png</file>
         <file>image/gamebutton.png</file>
+        <file>image/btnExit.png</file>
+        <file>image/btnSettings.png</file>
+        <file>image/buttonPlay.png</file>
     </qresource>
 </RCC>

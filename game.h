@@ -28,20 +28,22 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent*) override;
     void start();
     void stop();
-    GameObject ***map;
+    QVector<QVector<GameObject*>> map;
+    //GameObject ***map;
     GameStatus stat;
     Ticket *ticket;
     Player *player;
     Ticket *card;
     QVector<Ticket*> cards;
-    QGraphicsSceneMouseEvent *event;
     int lifePlayer = 0;
     int action = 0;
     void cheakHP();
     int giveAction();
-    void miniGame();
     QVector<QVector<int>> x_y_Inv;
     QVector<QVector<int>> x_y_Heart;
+    int actionPlayer = 0;
+    QVector<QVector<int>> vecZombie;
+
     friend class Player;
     friend class Ticket;
 private slots:
@@ -50,7 +52,6 @@ private:
     int map_height, map_width;
     int map_size;
     int geo_x, geo_y;
-
     QTimer *player_timer;
 
 };

@@ -12,19 +12,19 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src):QGraphicsScene(x
     map_size = map_w * map_h;
     map_width = map_w;
     map_height = map_h;
-    map = new GameObject**[map_height];
     ticket = new Ticket(GameObject::None);
     for(int i = 0; i < map_height; i++)
     {
         QVector<Ticket::ObjectType> tempVec;
         QVector<Ticket*> tmpTicket;
-        map[i] = new GameObject*[map_width];
+        QVector<GameObject*> tmpMap;
         for(int j = 0; j < map_width; j++)
         {
-            map[i][j] = nullptr;
+            tmpMap.push_back(nullptr);
             tempVec.push_back(GameObject::None);
             tmpTicket.push_back(nullptr);
         }
+        map.push_back(tmpMap);
         ticket->cardMap.push_back(tempVec);
         ticket->cards.push_back(tmpTicket);
     }
@@ -73,7 +73,14 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src):QGraphicsScene(x
                     addItem(map[i][j]);
                     break;
                 case '3':
-                    map[i][j] = new GameObject(GameObject::Wall, fieldpix);
+                    if(i == 0 && j == 0)
+                    {
+                        map[i][j] = new GameObject(GameObject::Air, fieldpix);
+                    }
+                    else
+                    {
+                        map[i][j] = new GameObject(GameObject::Wall, fieldpix);
+                    }
                     map[i][j]->setPos(tmp_x, tmp_y);
                     addItem(map[i][j]);
                     break;
@@ -95,7 +102,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src):QGraphicsScene(x
                     }
                     break;
                 case '5':
-                    map[i][j] = new GameObject(GameObject::Door, doorpix);
+                    map[i][j] = new GameObject(GameObject::Air, doorpix);
                     map[i][j]->setPos(tmp_x, tmp_y);
                     addItem(map[i][j]);
                     break;
@@ -313,11 +320,12 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
     {
         if(e->scenePos().x() >= 640 && e->scenePos().x() <= 671 && e->scenePos().y() >= 128 && e->scenePos().y() <= 159)
         {
+            actionPlayer = 0;
             int rand = (qrand() % ((10 + 1) - 1) + 1);
             bool flag = false;
             switch(rand)
             {
-                case 1:
+                /*case 1:
                     lifePlayer--;
                     if(lifePlayer != 0)
                     {
@@ -352,7 +360,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
                         stat = Game::Lose;
                     }
-                    break;
+                    break;*/
                 case 4:
                     for(int k = 0; k < 6; k++)
                     {
@@ -363,10 +371,32 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
 
                             ticket->cardMap[geo_y][geo_x] = GameObject::None;
                             ticket->cards[geo_y][geo_x]->setPixmap(ticket->animCard[GameObject::Air][0]);
+                            //ticket->cards[geo_y][geo_x] = ticket->cards[1][1];
+                            //ticket->cards[vecZombie[0][0]][vecZombie[0][1]] = Ticket::Hidden;
+                            map[geo_y][geo_x] = map[0][0];
+                            ticket->cards[geo_y][geo_x] = ticket->cards[0][0];
 
                             flag = true;
                             player->vecIn[k] = GameObject::None;
                             stat = Game::Playing;
+                            int n = 0;
+                            for(int i = 0; i < vecZombie.size(); i++)
+                            {
+                                if(vecZombie[i][0] == geo_y && vecZombie[i][1] == geo_x)
+                                {
+                                    n = i;
+                                }
+                            }
+                            if(vecZombie.begin() != vecZombie.end())
+                            {
+                                vecZombie.erase(vecZombie.begin() + n, vecZombie.begin() + n + 1);
+                            }
+                            else
+                            {
+                                vecZombie.pop_back();
+                            }
+                            //ticket->cards[vecZombie[0][0]][vecZombie[0][]] = Ticket::Hidden;
+                            break;
                         }
                     }
                     break;
@@ -380,10 +410,29 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
 
                             ticket->cardMap[geo_y][geo_x] = GameObject::None;
                             ticket->cards[geo_y][geo_x]->setPixmap(ticket->animCard[GameObject::Air][0]);
-
+                            //ticket->cards[geo_y][geo_x]  = ticket->cards[1][1];
+                            map[geo_y][geo_x] = map[0][0];
+                            ticket->cards[geo_y][geo_x] = ticket->cards[0][0];
                             flag = true;
                             player->vecIn[k] = GameObject::None;
                             stat = Game::Playing;
+                            int n = 0;
+                            for(int i = 0; i < vecZombie.size(); i++)
+                            {
+                                if(vecZombie[i][0] == geo_y && vecZombie[i][1] == geo_x)
+                                {
+                                    n = i;
+                                }
+                            }
+                            if(vecZombie.begin() != vecZombie.end())
+                            {
+                                vecZombie.erase(vecZombie.begin() + n, vecZombie.begin() + n + 1);
+                            }
+                            else
+                            {
+                                vecZombie.pop_back();
+                            }
+                            ticket->status = Ticket::Hidden;
                             break;
                         }
                     }
@@ -398,10 +447,30 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
 
                             ticket->cardMap[geo_y][geo_x] = GameObject::None;
                             ticket->cards[geo_y][geo_x]->setPixmap(ticket->animCard[GameObject::Air][0]);
+                            //ticket->cards[geo_y][geo_x]  = ticket->cards[1][1];
 
+                            map[geo_y][geo_x] = map[0][0];
+                            ticket->cards[geo_y][geo_x] = ticket->cards[0][0];
                             flag = true;
                             player->vecIn[k] = GameObject::None;
                             stat = Game::Playing;
+                            int n = 0;
+                            for(int i = 0; i < vecZombie.size(); i++)
+                            {
+                                if(vecZombie[i][0] == geo_y && vecZombie[i][1] == geo_x)
+                                {
+                                    n = i;
+                                }
+                            }
+                            if(vecZombie.begin() != vecZombie.end())
+                            {
+                                vecZombie.erase(vecZombie.begin() + n, vecZombie.begin() + n + 1);
+                            }
+                            else
+                            {
+                                vecZombie.pop_back();
+                            }
+                            ticket->status = Ticket::Hidden;
                             break;
                         }
                     }
@@ -417,9 +486,30 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                             ticket->cardMap[geo_y][geo_x] = GameObject::None;
                             ticket->cards[geo_y][geo_x]->setPixmap(ticket->animCard[GameObject::Air][0]);
 
+                            map[geo_y][geo_x] = map[0][0];
+                            ticket->cards[geo_y][geo_x] = ticket->cards[0][0];
+
+
                             flag = true;
                             player->vecIn[k] = GameObject::None;
                             stat = Game::Playing;
+                            int n = 0;
+                            for(int i = 0; i < vecZombie.size(); i++)
+                            {
+                                if(vecZombie[i][0] == geo_y && vecZombie[i][1] == geo_x)
+                                {
+                                    n = i;
+                                }
+                            }
+                            if(vecZombie.begin() != vecZombie.end())
+                            {
+                                vecZombie.erase(vecZombie.begin() + n, vecZombie.begin() + n + 1);
+                            }
+                            else
+                            {
+                                vecZombie.pop_back();
+                            }
+                            ticket->status = Ticket::Hidden;
                             break;
                         }
                     }
@@ -447,14 +537,14 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
         {
             if(ticket->cardMap[Y][X] == GameObject::Heal)
             {
-                for(int i = 0 ; i < 2; i++)
+                for(int i = 0 ; i < 3; i++)
                 {
                     if(lifePlayer != 5)
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[0]);
                         lifePlayer++;
-                        ticket->cardMap[x_y_Inv[1][0]][x_y_Inv[1][1]] = GameObject::Gun;
-                        ticket->cards[x_y_Inv[1][0]][x_y_Inv[1][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
+                        ticket->cardMap[x_y_Inv[0][0]][x_y_Inv[0][1]] = GameObject::Gun;
+                        ticket->cards[x_y_Inv[0][0]][x_y_Inv[0][1]]->setPixmap(ticket->animInv[GameObject::Gun][0]);
                     }
                 }
             }
@@ -463,7 +553,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
         {
             if(ticket->cardMap[Y][X] == GameObject::Heal)
             {
-                for(int i = 0 ; i < 2; i++)
+                for(int i = 0 ; i < 3; i++)
                 {
                     if(lifePlayer != 5)
                     {
@@ -479,7 +569,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
         {
             if(ticket->cardMap[Y][X] == GameObject::Heal)
             {
-                for(int i = 0 ; i < 2; i++)
+                for(int i = 0 ; i < 3; i++)
                 {
                     if(lifePlayer != 5)
                     {
@@ -495,7 +585,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
         {
             if(ticket->cardMap[Y][X] == GameObject::Heal)
             {
-                for(int i = 0 ; i < 2; i++)
+                for(int i = 0 ; i < 3; i++)
                 {
                     if(lifePlayer != 5)
                     {
@@ -511,7 +601,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
         {
             if(ticket->cardMap[Y][X] == GameObject::Heal)
             {
-                for(int i = 0 ; i < 2; i++)
+                for(int i = 0 ; i < 3; i++)
                 {
                     if(lifePlayer != 5)
                     {
@@ -528,7 +618,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
             qDebug() << lifePlayer;
             if(ticket->cardMap[Y][X] == GameObject::Heal)
             {
-                for(int i = 0 ; i < 2; i++)
+                for(int i = 0 ; i < 3; i++)
                 {
                     if(lifePlayer != 5)
                     {
@@ -540,13 +630,6 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                 }
             }
         }
-    }
-}
-void Game::miniGame()
-{
-    if(stat == Game::MiniGame)
-    {
-
     }
 }
 void Game::start()
@@ -565,13 +648,12 @@ int Game::giveAction()
 }
 Game::~Game()
 {
-    for (int i = 0; i < map_height; i++)
-    {
-            for (int j = 0; j < map_width; j++)
-            {
-                if (map[i][j] != nullptr)
-                    delete map[i][j];
-            }
-            delete[] map[i];
-        }
+    map.clear();
+    vecZombie.clear();
+    x_y_Inv.clear();
+    x_y_Heart.clear();
+    cards.clear();
+    lifePlayer = 0;
+    action = 0;
+
 }

@@ -12,8 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->btnSettings, &QPushButton::clicked, this, &MainWindow::settingsAction);
     connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::exitAction);
     connect(ui->btnBack, &QPushButton::clicked, this, &MainWindow::backToMenu);
-    connect(ui->btnBack2, &QPushButton::clicked, this, &MainWindow::backToMenu);
-    connect(ui->btnGiveAction, &QPushButton::clicked, this, &MainWindow::giveAction);
     connect(ui->btnFullScreen, &QRadioButton::clicked, this, &MainWindow::fullScreenAction);
 }
 
@@ -40,27 +38,44 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
     {
         //if(game->action != 0)
         //{
+        qDebug() << game->vecZombie.size();
+        if(game->actionPlayer == 3 && !game->vecZombie.empty())
+        {
+            for(int i = 0; i < game->vecZombie.size(); i++)
+            {
+                game->ticket->cards[game->vecZombie[i][0]][game->vecZombie[i][1]]->move(i);
+            }
+            game->actionPlayer = 0;
+        }
             switch(e->key())
             {
             case Qt::Key_W:
                 game->player->player_move_up();
-                game->action--;
-                ui->label->setText(QString::number(game->action));
+                if(!game->vecZombie.empty() && game->stat != Game::Question && game->stat != Game::MiniGame)
+                {
+                    game->actionPlayer++;
+                }
                 break;
             case Qt::Key_A:
                 game->player->player_move_left();
-                game->action--;
-                ui->label->setText(QString::number(game->action));
+                if(!game->vecZombie.empty() && game->stat != Game::Question && game->stat != Game::MiniGame)
+                {
+                    game->actionPlayer++;
+                }
                 break;
             case Qt::Key_S:
                 game->player->player_move_down();
-                game->action--;
-                ui->label->setText(QString::number(game->action));
+                if(!game->vecZombie.empty() && game->stat != Game::Question && game->stat != Game::MiniGame)
+                {
+                    game->actionPlayer++;
+                }
                 break;
             case Qt::Key_D:
                 game->player->player_move_right();
-                game->action--;
-                ui->label->setText(QString::number(game->action));
+                if(!game->vecZombie.empty() && game->stat != Game::Question && game->stat != Game::MiniGame)
+                {
+                    game->actionPlayer++;
+                }
                 break;
             }
         //}
@@ -87,6 +102,7 @@ void MainWindow::update_score()
         score_timer->stop();
         game->stat = Game::Pause;
         ui->stackedWidget->setCurrentIndex(0);
+        //game->~Game();
     }
     else if(game->stat == Game::Lose)
     {
@@ -94,6 +110,7 @@ void MainWindow::update_score()
         score_timer->stop();
         game->stat = Game::Pause;
         ui->stackedWidget->setCurrentIndex(0);
+        //game->~Game();
     }
 
 }
@@ -151,7 +168,7 @@ void MainWindow::exitAction()
 {
     close();
 }
-void MainWindow::giveAction()
+/*void MainWindow::giveAction()
 {
     if(game->action == 0)
     {
@@ -163,4 +180,4 @@ void MainWindow::giveAction()
     {
         QMessageBox::warning(this, "ACHTUNG", "U have action:  " + QString::number(game->action));
     }
-}
+}*/

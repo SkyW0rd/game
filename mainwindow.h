@@ -25,7 +25,7 @@ public:
     void backToMenu();
     void settingsAction();
     void exitAction();
-    void giveAction();
+    //void giveAction();
     void fullScreenAction();
 private slots:
     void update_score();

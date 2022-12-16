@@ -41,6 +41,8 @@ void Player::addToInv(ObjectType type, int i, int j, int k)
     game->ticket->cards[game->geo_y][game->geo_x]->setPixmap(game->ticket->animCard[Air][0]);
     game->ticket->cardMap[game->geo_y][game->geo_x] = GameObject::None;
     game->ticket->cardMap[i][j] = type;
+    game->map[game->geo_y][game->geo_x] = game->map[0][0];
+    game->ticket->cards[game->geo_y][game->geo_x] = game->ticket->cards[0][0];
     game->ticket->cards[i][j]->setPixmap(game->ticket->animInv[type][0]);
 }
 void Player::moveup()
@@ -93,10 +95,21 @@ bool Player::overlapable(int i, int j)
     case Ticket:
         if(game->ticket->cardMap[i][j] != GameObject::Air)
         {
-            game->ticket->cards[i][j]->setAnimTicket(i, j);
+            //game->ticket->cards[i][j]->setAnimTicket(i, j);
             if(game->ticket->cardMap[i][j] != GameObject::Zombie && game->ticket->cardMap[i][j] != GameObject::None)
             {
+                game->ticket->cards[i][j]->setAnimTicket(i, j);
                 game->stat = Game::Question;
+            }
+            else if(game->ticket->cardMap[i][j] == GameObject::Zombie && game->ticket->cards[i][j]->status == Ticket::Hidden)
+            {
+                game->ticket->cards[i][j]->setAnimTicket(i, j);
+                QVector<int> tempXY;
+                tempXY.push_back(i);
+                tempXY.push_back(j);
+                game->vecZombie.push_back(tempXY);
+                game->ticket->cards[i][j]->status = Ticket::Active;
+                game->stat = Game::MiniGame;
             }
             else if(game->ticket->cardMap[i][j] == GameObject::Zombie && game->ticket->cardMap[i][j] != GameObject::None)
             {
