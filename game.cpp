@@ -325,7 +325,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
             bool flag = false;
             switch(rand)
             {
-                /*case 1:
+                case 1:
                     lifePlayer--;
                     if(lifePlayer != 0)
                     {
@@ -360,7 +360,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
                         stat = Game::Lose;
                     }
-                    break;*/
+                    break;
                 case 4:
                     for(int k = 0; k < 6; k++)
                     {
