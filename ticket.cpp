@@ -348,7 +348,7 @@ GameObject::ObjectType Ticket::randTicket()
     while(tempType == None)
     {
         int rand = (qrand() % ((high + 1) - low) + low);
-        if(winItems.size() != 0)
+        /*if(winItems.size() != 0)
         {
             tempType = winItems[winItems.size() - 1];
             winItems.pop_back();
@@ -367,8 +367,8 @@ GameObject::ObjectType Ticket::randTicket()
         {
             tempType = zombies[zombies.size() - 1];
             zombies.pop_back();
-        }
-        /*switch(rand)
+        }*/
+        switch(rand)
         {
             case 0:
                 if(winItems.size() != 0)
@@ -398,7 +398,7 @@ GameObject::ObjectType Ticket::randTicket()
                     zombies.pop_back();
                 }
                 break;
-        }*/
+        }
     }
     return tempType;
 }
