@@ -36,9 +36,6 @@ public:
     Ticket *card;
     QVector<Ticket*> cards;
     int lifePlayer = 0;
-    int action = 0;
-    void cheakHP();
-    int giveAction();
     QVector<QVector<int>> x_y_Inv;
     QVector<QVector<int>> x_y_Heart;
     int actionPlayer = 0;
@@ -52,7 +49,6 @@ private:
     int map_height, map_width;
     int map_size;
     int geo_x, geo_y;
-    QTimer *player_timer;
 
 };
 #endif // GAME_H

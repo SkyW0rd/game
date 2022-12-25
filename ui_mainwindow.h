@@ -17,6 +17,8 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QKeySequenceEdit>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
@@ -54,13 +56,34 @@ public:
     QHBoxLayout *horizontalLayout_6;
     QRadioButton *btnFullScreen;
     QSpacerItem *horizontalSpacer_5;
+    QHBoxLayout *horizontalLayout;
+    QKeySequenceEdit *WKey;
+    QLineEdit *WEditLine;
+    QSpacerItem *horizontalSpacer_7;
+    QHBoxLayout *horizontalLayout_2;
+    QKeySequenceEdit *AKey;
+    QLineEdit *AEditLine;
+    QSpacerItem *horizontalSpacer_3;
+    QHBoxLayout *horizontalLayout_3;
+    QKeySequenceEdit *SKey;
+    QLineEdit *SEditLine;
+    QSpacerItem *horizontalSpacer_6;
+    QHBoxLayout *horizontalLayout_4;
+    QKeySequenceEdit *DKey;
+    QLineEdit *DEditLine;
+    QSpacerItem *horizontalSpacer_8;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(921, 606);
-        MainWindow->setStyleSheet(QStringLiteral("border-image: url(:/image/1616042210_20-p-pikselnii-fon-dlya-igri-22.jpg);"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(30);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setStyleSheet(QStringLiteral(""));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -97,11 +120,11 @@ public:
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         btnPlay = new QPushButton(page);
         btnPlay->setObjectName(QStringLiteral("btnPlay"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(1);
-        sizePolicy.setHeightForWidth(btnPlay->sizePolicy().hasHeightForWidth());
-        btnPlay->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(1);
+        sizePolicy1.setHeightForWidth(btnPlay->sizePolicy().hasHeightForWidth());
+        btnPlay->setSizePolicy(sizePolicy1);
         btnPlay->setMinimumSize(QSize(200, 40));
         btnPlay->setStyleSheet(QStringLiteral("border-image: url(:/image/buttonPlay.png);"));
 
@@ -116,11 +139,11 @@ public:
 
         btnSettings = new QPushButton(page);
         btnSettings->setObjectName(QStringLiteral("btnSettings"));
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(btnSettings->sizePolicy().hasHeightForWidth());
-        btnSettings->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(btnSettings->sizePolicy().hasHeightForWidth());
+        btnSettings->setSizePolicy(sizePolicy2);
         btnSettings->setMinimumSize(QSize(200, 40));
         btnSettings->setStyleSheet(QStringLiteral("border-image: url(:/image/btnSettings.png);"));
 
@@ -161,7 +184,7 @@ public:
         btnBack = new QPushButton(page_3);
         btnBack->setObjectName(QStringLiteral("btnBack"));
         btnBack->setMinimumSize(QSize(200, 40));
-        btnBack->setStyleSheet(QStringLiteral("border-image: url(:/image/air.png);"));
+        btnBack->setStyleSheet(QStringLiteral(""));
 
         horizontalLayout_5->addWidget(btnBack);
 
@@ -183,6 +206,109 @@ public:
 
         gridLayout_6->addLayout(horizontalLayout_6, 1, 0, 1, 1);
 
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        WKey = new QKeySequenceEdit(page_3);
+        WKey->setObjectName(QStringLiteral("WKey"));
+        QSizePolicy sizePolicy3(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(WKey->sizePolicy().hasHeightForWidth());
+        WKey->setSizePolicy(sizePolicy3);
+        WKey->setMinimumSize(QSize(0, 0));
+
+        horizontalLayout->addWidget(WKey);
+
+        WEditLine = new QLineEdit(page_3);
+        WEditLine->setObjectName(QStringLiteral("WEditLine"));
+        sizePolicy3.setHeightForWidth(WEditLine->sizePolicy().hasHeightForWidth());
+        WEditLine->setSizePolicy(sizePolicy3);
+
+        horizontalLayout->addWidget(WEditLine);
+
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_7);
+
+
+        gridLayout_6->addLayout(horizontalLayout, 2, 0, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        AKey = new QKeySequenceEdit(page_3);
+        AKey->setObjectName(QStringLiteral("AKey"));
+        sizePolicy3.setHeightForWidth(AKey->sizePolicy().hasHeightForWidth());
+        AKey->setSizePolicy(sizePolicy3);
+
+        horizontalLayout_2->addWidget(AKey);
+
+        AEditLine = new QLineEdit(page_3);
+        AEditLine->setObjectName(QStringLiteral("AEditLine"));
+        sizePolicy3.setHeightForWidth(AEditLine->sizePolicy().hasHeightForWidth());
+        AEditLine->setSizePolicy(sizePolicy3);
+
+        horizontalLayout_2->addWidget(AEditLine);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_3);
+
+
+        gridLayout_6->addLayout(horizontalLayout_2, 3, 0, 1, 1);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        SKey = new QKeySequenceEdit(page_3);
+        SKey->setObjectName(QStringLiteral("SKey"));
+        sizePolicy3.setHeightForWidth(SKey->sizePolicy().hasHeightForWidth());
+        SKey->setSizePolicy(sizePolicy3);
+
+        horizontalLayout_3->addWidget(SKey);
+
+        SEditLine = new QLineEdit(page_3);
+        SEditLine->setObjectName(QStringLiteral("SEditLine"));
+        sizePolicy3.setHeightForWidth(SEditLine->sizePolicy().hasHeightForWidth());
+        SEditLine->setSizePolicy(sizePolicy3);
+
+        horizontalLayout_3->addWidget(SEditLine);
+
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_6);
+
+
+        gridLayout_6->addLayout(horizontalLayout_3, 4, 0, 1, 1);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        DKey = new QKeySequenceEdit(page_3);
+        DKey->setObjectName(QStringLiteral("DKey"));
+        sizePolicy3.setHeightForWidth(DKey->sizePolicy().hasHeightForWidth());
+        DKey->setSizePolicy(sizePolicy3);
+
+        horizontalLayout_4->addWidget(DKey);
+
+        DEditLine = new QLineEdit(page_3);
+        DEditLine->setObjectName(QStringLiteral("DEditLine"));
+        QSizePolicy sizePolicy4(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(DEditLine->sizePolicy().hasHeightForWidth());
+        DEditLine->setSizePolicy(sizePolicy4);
+
+        horizontalLayout_4->addWidget(DEditLine);
+
+        horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_8);
+
+
+        gridLayout_6->addLayout(horizontalLayout_4, 5, 0, 1, 1);
+
 
         gridLayout_7->addLayout(gridLayout_6, 0, 0, 1, 1);
 
@@ -194,7 +320,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(0);
+        stackedWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

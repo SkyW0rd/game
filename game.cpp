@@ -641,11 +641,6 @@ void Game::stop()
 {
 
 }
-
-int Game::giveAction()
-{
-    return(qrand()%((4 + 1) - 1) + 1);
-}
 Game::~Game()
 {
     map.clear();
@@ -654,6 +649,5 @@ Game::~Game()
     x_y_Heart.clear();
     cards.clear();
     lifePlayer = 0;
-    action = 0;
 
 }

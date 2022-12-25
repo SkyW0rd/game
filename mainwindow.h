@@ -7,7 +7,7 @@
 #include <QTimer>
 #include "game.h"
 #include <QDebug>
-
+#include <QKeySequenceEdit>
 QT_BEGIN_NAMESPACE
 namespace Ui {class MainWindow;}
 QT_END_NAMESPACE
@@ -25,7 +25,10 @@ public:
     void backToMenu();
     void settingsAction();
     void exitAction();
-    //void giveAction();
+    void WChange();
+    void AChange();
+    void SChange();
+    void DChange();
     void fullScreenAction();
 private slots:
     void update_score();
@@ -35,6 +38,9 @@ private:
     QTimer *score_timer;
     Game *game;
     bool clickedFullScreen = false;
+    int W = Qt::Key_W;
+    int A = Qt::Key_A;
+    int S = Qt::Key_S;
+    int D = Qt::Key_D;
 };
-
 #endif // MAINWINDOW_H

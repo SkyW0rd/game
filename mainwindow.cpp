@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -13,11 +13,44 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::exitAction);
     connect(ui->btnBack, &QPushButton::clicked, this, &MainWindow::backToMenu);
     connect(ui->btnFullScreen, &QRadioButton::clicked, this, &MainWindow::fullScreenAction);
+    connect(ui->WKey, &QKeySequenceEdit::keySequenceChanged, this, &MainWindow::WChange);
+    connect(ui->AKey, &QKeySequenceEdit::keySequenceChanged, this, &MainWindow::AChange);
+    connect(ui->SKey, &QKeySequenceEdit::keySequenceChanged, this, &MainWindow::SChange);
+    connect(ui->DKey, &QKeySequenceEdit::keySequenceChanged, this, &MainWindow::DChange);
+    ui->WEditLine->setText("W");
+    ui->AEditLine->setText("A");
+    ui->SEditLine->setText("S");
+    ui->DEditLine->setText("D");
+    ui->WEditLine->setReadOnly(true);
+    ui->AEditLine->setReadOnly(true);
+    ui->SEditLine->setReadOnly(true);
+    ui->DEditLine->setReadOnly(true);
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+void MainWindow::WChange()
+{
+    W = ui->WKey->keySequence()[0];
+    ui->WEditLine->setText(QString("%1").arg(QChar(W)));
+}
+void MainWindow::AChange()
+{
+    A = ui->AKey->keySequence()[0];
+    ui->AEditLine->setText(QString("%1").arg(QChar(A)));
+}
+void MainWindow::SChange()
+{
+    S = ui->SKey->keySequence()[0];
+    ui->SEditLine->setText(QString("%1").arg(QChar(S)));
+}
+void MainWindow::DChange()
+{
+    D = ui->DKey->keySequence()[0];
+    ui->DEditLine->setText(QString("%1").arg(QChar(D)));
 }
 void MainWindow::fullScreenAction()
 {
@@ -36,9 +69,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 {
     if(ui->stackedWidget->currentIndex() == 1 && game->stat != Game::Question && game->stat != Game::MiniGame)
     {
-        //if(game->action != 0)
-        //{
-        qDebug() << game->vecZombie.size();
+        //qDebug() << game->vecZombie.size();
         if(game->actionPlayer == 3 && !game->vecZombie.empty())
         {
             for(int i = 0; i < game->vecZombie.size(); i++)
@@ -47,8 +78,42 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             }
             game->actionPlayer = 0;
         }
-            switch(e->key())
+        //qDebug() <<"Pressed: " << e->key();
+        //qDebug() << "W: " << W;
+        if(e->key() == W)
+        {
+            game->player->player_move_up();
+            if(!game->vecZombie.empty() && game->stat != Game::Question && game->stat != Game::MiniGame)
             {
+                game->actionPlayer++;
+            }
+        }
+        else if(e->key() == A)
+        {
+            game->player->player_move_left();
+            if(!game->vecZombie.empty() && game->stat != Game::Question && game->stat != Game::MiniGame)
+            {
+                game->actionPlayer++;
+            }
+        }
+        else if(e->key() == S)
+        {
+            game->player->player_move_down();
+            if(!game->vecZombie.empty() && game->stat != Game::Question && game->stat != Game::MiniGame)
+            {
+                game->actionPlayer++;
+            }
+        }
+        else if(e->key() == D)
+        {
+            game->player->player_move_right();
+            if(!game->vecZombie.empty() && game->stat != Game::Question && game->stat != Game::MiniGame)
+            {
+                game->actionPlayer++;
+            }
+        }
+        /*switch(e->key())
+        {
             case Qt::Key_W:
                 game->player->player_move_up();
                 if(!game->vecZombie.empty() && game->stat != Game::Question && game->stat != Game::MiniGame)
@@ -77,20 +142,6 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
                     game->actionPlayer++;
                 }
                 break;
-            }
-        //}
-        /*else
-        {
-            QMessageBox::StandardButton reply;
-                reply = QMessageBox::question(this, "Action", "Do u need action?", QMessageBox::Yes | QMessageBox::No);
-            if(reply == QMessageBox::Yes)
-            {
-                giveAction();
-            }
-            else
-            {
-                QMessageBox::warning(this, "Action", "PLEASE, TAKE ACTION!!!");
-            }
         }*/
     }
 }

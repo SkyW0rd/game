@@ -24,8 +24,6 @@ public:
     ObjectType get_type();
     int get_x();
     int get_y();
-    int get_score();
-    void set_score(int);
 
     void set_dir(Dir);
     void set_next_Dir(Dir);
@@ -39,7 +37,6 @@ protected:
 
     int _x, _y;
     ObjectType type;
-    int score;
 
 };
 
