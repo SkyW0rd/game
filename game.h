@@ -16,6 +16,7 @@
 #include <QDebug>
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
+#include <QEventLoop>
 
 class Game: public QGraphicsScene
 {
@@ -38,9 +39,10 @@ public:
     int lifePlayer = 0;
     QVector<QVector<int>> x_y_Inv;
     QVector<QVector<int>> x_y_Heart;
+    QVector<QVector<int>> x_y_Button;
+    QVector<QVector<int>> x_y_StateButton;
     int actionPlayer = 0;
     QVector<QVector<int>> vecZombie;
-
     friend class Player;
     friend class Ticket;
 private slots:

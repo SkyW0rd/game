@@ -164,6 +164,32 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src):QGraphicsScene(x
                     addItem(map[i][j]);
                     qDebug() << tmp_x << " " << tmp_y;
                     break;
+                case 'i':
+                    card = new Ticket(GameObject::button);
+                    card->game = this;
+                    card->setZValue(1);
+                    card->setPos(tmp_x, tmp_y);
+                    addItem(card);
+                    map[i][j] = card;
+                    ticket->cardMap[i][j] = GameObject::button;
+                    ticket->cards[i][j] = card;
+                    tempXY.push_back(i);
+                    tempXY.push_back(j);
+                    x_y_Button.push_back(tempXY);
+                    break;
+                case 'a':
+                    card = new Ticket(GameObject::statebutton);
+                    card->game = this;
+                    card->setZValue(1);
+                    card->setPos(tmp_x, tmp_y);
+                    addItem(card);
+                    map[i][j] = card;
+                    ticket->cardMap[i][j] = GameObject::statebutton;
+                    ticket->cards[i][j] = card;
+                    tempXY.push_back(i);
+                    tempXY.push_back(j);
+                    x_y_StateButton.push_back(tempXY);
+                    break;
             }
             if(map[i][j])
             {
@@ -198,6 +224,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                 ticket->cardMap[Y][X] = ticket->cardMap[Y][X];
                 ticket->cards[Y][X]->setPixmap(ticket->animInv[ticket->cardMap[Y][X]][0]);
             }
+            ticket->cards[x_y_StateButton[1][0]][x_y_StateButton[1][1]]->setPixmap(ticket->animStateButton[0]);
             stat = Game::Playing;
         }
         if(e->scenePos().x() >= 672 && e->scenePos().x() <= 703 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
@@ -221,6 +248,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                 ticket->cardMap[Y][X] = ticket->cardMap[Y][X];
                 ticket->cards[Y][X]->setPixmap(ticket->animInv[ticket->cardMap[Y][X]][0]);
             }
+            ticket->cards[x_y_StateButton[1][0]][x_y_StateButton[1][1]]->setPixmap(ticket->animStateButton[0]);
             stat = Game::Playing;
         }
         else if(e->scenePos().x() >= 704 && e->scenePos().x() <= 735 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
@@ -244,6 +272,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                 ticket->cardMap[Y][X] = ticket->cardMap[Y][X];
                 ticket->cards[Y][X]->setPixmap(ticket->animInv[ticket->cardMap[Y][X]][0]);
             }
+            ticket->cards[x_y_StateButton[1][0]][x_y_StateButton[1][1]]->setPixmap(ticket->animStateButton[0]);
             stat = Game::Playing;
         }
         else if(e->scenePos().x() >= 736 && e->scenePos().x() <= 767 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
@@ -267,6 +296,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                 ticket->cardMap[Y][X] = ticket->cardMap[Y][X];
                 ticket->cards[Y][X]->setPixmap(ticket->animInv[ticket->cardMap[Y][X]][0]);
             }
+            ticket->cards[x_y_StateButton[1][0]][x_y_StateButton[1][1]]->setPixmap(ticket->animStateButton[0]);
             stat = Game::Playing;
         }
         else if(e->scenePos().x() >= 768 && e->scenePos().x() <= 799 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
@@ -290,6 +320,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                 ticket->cardMap[Y][X] = ticket->cardMap[Y][X];
                 ticket->cards[Y][X]->setPixmap(ticket->animInv[ticket->cardMap[Y][X]][0]);
             }
+            ticket->cards[x_y_StateButton[1][0]][x_y_StateButton[1][1]]->setPixmap(ticket->animStateButton[0]);
             stat = Game::Playing;
         }
         else if(e->scenePos().x() >= 800 && e->scenePos().x() <= 831 && e->scenePos().y() >= 224 && e->scenePos().y() <= 255)
@@ -313,6 +344,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                 ticket->cardMap[Y][X] = ticket->cardMap[Y][X];
                 ticket->cards[Y][X]->setPixmap(ticket->animInv[ticket->cardMap[Y][X]][0]);
             }
+            ticket->cards[x_y_StateButton[1][0]][x_y_StateButton[1][1]]->setPixmap(ticket->animStateButton[0]);
             stat = Game::Playing;
         }
     }
@@ -327,6 +359,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
             {
                 case 1:
                     lifePlayer--;
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[1]);
                     if(lifePlayer != 0)
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
@@ -334,11 +367,13 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     else
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
+                        ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                         stat = Game::Lose;
                     }
                     break;
                 case 2:
                     lifePlayer--;
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[1]);
                     if(lifePlayer != 0)
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
@@ -346,11 +381,13 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     else
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
+                        ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                         stat = Game::Lose;
                     }
                     break;
                 case 3:
                     lifePlayer--;
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[1]);
                     if(lifePlayer != 0)
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
@@ -358,10 +395,12 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     else
                     {
                         ticket->cards[x_y_Heart[lifePlayer][0]][x_y_Heart[lifePlayer][1]]->setPixmap(ticket->animHeart[1]);
+                        ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                         stat = Game::Lose;
                     }
                     break;
                 case 4:
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[2]);
                     for(int k = 0; k < 6; k++)
                     {
                         if(player->vecIn[k] == GameObject::Pistol && flag == false)
@@ -378,6 +417,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
 
                             flag = true;
                             player->vecIn[k] = GameObject::None;
+                            ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                             stat = Game::Playing;
                             int n = 0;
                             for(int i = 0; i < vecZombie.size(); i++)
@@ -396,11 +436,13 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                                 vecZombie.pop_back();
                             }
                             //ticket->cards[vecZombie[0][0]][vecZombie[0][]] = Ticket::Hidden;
+                            ticket->status = Ticket::Hidden;
                             break;
                         }
                     }
                     break;
                 case 5:
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[2]);
                     for(int k = 0; k < 6; k++)
                     {
                         if(player->vecIn[k] == GameObject::Pistol && flag == false)
@@ -415,6 +457,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                             ticket->cards[geo_y][geo_x] = ticket->cards[0][0];
                             flag = true;
                             player->vecIn[k] = GameObject::None;
+                            ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                             stat = Game::Playing;
                             int n = 0;
                             for(int i = 0; i < vecZombie.size(); i++)
@@ -438,6 +481,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     }
                     break;
                 case 6:
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[3]);
                     for(int k = 0; k < 6; k++)
                     {
                         if(player->vecIn[k] == GameObject::Knife && flag == false)
@@ -453,6 +497,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                             ticket->cards[geo_y][geo_x] = ticket->cards[0][0];
                             flag = true;
                             player->vecIn[k] = GameObject::None;
+                            ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                             stat = Game::Playing;
                             int n = 0;
                             for(int i = 0; i < vecZombie.size(); i++)
@@ -476,6 +521,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     }
                     break;
                 case 7:
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[3]);
                     for(int k = 0; k < 6; k++)
                     {
                         if(player->vecIn[k] == GameObject::Knife && flag == false)
@@ -492,6 +538,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
 
                             flag = true;
                             player->vecIn[k] = GameObject::None;
+                            ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                             stat = Game::Playing;
                             int n = 0;
                             for(int i = 0; i < vecZombie.size(); i++)
@@ -515,18 +562,33 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     }
                     break;
                 case 8:
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[4]);
+                    ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                     stat = Game::Playing;
                     break;
                 case 9:
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[4]);
+                    ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                     stat = Game::Playing;
                     break;
                 case 10:
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[4]);
+                    ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                     stat = Game::Playing;
                     break;
                 default:
+                    ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[4]);
+                    ticket->cards[x_y_StateButton[0][0]][x_y_StateButton[0][1]]->setPixmap(ticket->animStateButton[0]);
                     stat = Game::Playing;
                     break;
             }
+            QTimer timer;
+            timer.setInterval(500);
+            QEventLoop loop;
+            connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+            timer.start();
+            loop.exec();
+            ticket->cards[x_y_Button[0][0]][x_y_Button[0][1]]->setPixmap(ticket->animButton[0]);
         }
     }
     else if(stat == Game::Playing)

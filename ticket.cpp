@@ -1,7 +1,12 @@
 #include "game.h"
 #define W (GameObject::Width)
-Ticket::Ticket(ObjectType type) : GameObject(GameObject::Ticket, (type == GameObject::Gun) ? QPixmap(":/image/inventory.png") :
-                                                                                             ((type == GameObject::Heart) ? QPixmap(":/image/heart.png") : QPixmap(":/image/surprise.png")))
+Ticket::Ticket(ObjectType type) :
+    GameObject(GameObject::Ticket,
+        (type == GameObject::Gun) ? QPixmap(":/image/inventory.png") :
+            ((type == GameObject::Heart) ? QPixmap(":/image/heart.png") :
+                (type == GameObject::button) ? QPixmap(":/image/airbutton.png"):
+                    (type == GameObject::statebutton) ? QPixmap(":/image/air.png") :
+                        QPixmap(":/image/surprise.png")))
 {
     animCard[Heal].push_back(QPixmap(":/image/firstAidKit.png"));
     animCard[Knife].push_back(QPixmap(":/image/knife.png"));
@@ -25,7 +30,14 @@ Ticket::Ticket(ObjectType type) : GameObject(GameObject::Ticket, (type == GameOb
     animZombie[Left].push_back(QPixmap(":/image/zombie"));
     animZombie[Right].push_back(QPixmap(":/image/zombie"));
 
+    animButton.push_back(QPixmap(":/image/airbutton.png")); // 0
+    animButton.push_back(QPixmap(":/image/heartbutton.png")); // 1
+    animButton.push_back(QPixmap(":/image/m4button.png")); // 2
+    animButton.push_back(QPixmap(":/image/knifebutton.png")); // 3
+    animButton.push_back(QPixmap(":/image/runbutton.png")); // 4
 
+    animStateButton.push_back(QPixmap(":/image/air.png"));
+    animStateButton.push_back(QPixmap(":/image/statebutton.png"));
 
 }
 

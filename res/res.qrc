@@ -36,5 +36,11 @@
         <file>image/btnExit.png</file>
         <file>image/btnSettings.png</file>
         <file>image/buttonPlay.png</file>
+        <file>image/airbutton.png</file>
+        <file>image/heartbutton.png</file>
+        <file>image/knifebutton.png</file>
+        <file>image/m4button.png</file>
+        <file>image/runbutton.png</file>
+        <file>image/statebutton.png</file>
     </qresource>
 </RCC>

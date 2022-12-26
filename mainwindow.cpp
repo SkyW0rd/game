@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle(tr("Zombies at home"));
+    setWindowFlag(Qt::FramelessWindowHint);
     ui->stackedWidget->setCurrentIndex(0);
     connect(ui->btnPlay, &QPushButton::clicked, this, &MainWindow::playAction);
     connect(ui->btnSettings, &QPushButton::clicked, this, &MainWindow::settingsAction);
@@ -35,22 +36,22 @@ MainWindow::~MainWindow()
 void MainWindow::WChange()
 {
     W = ui->WKey->keySequence()[0];
-    ui->WEditLine->setText(QString("%1").arg(QChar(W)));
+    ui->WEditLine->setText(QString("%1").arg(QChar(W)) + " Up");
 }
 void MainWindow::AChange()
 {
     A = ui->AKey->keySequence()[0];
-    ui->AEditLine->setText(QString("%1").arg(QChar(A)));
+    ui->AEditLine->setText(QString("%1").arg(QChar(A)) + " Left");
 }
 void MainWindow::SChange()
 {
     S = ui->SKey->keySequence()[0];
-    ui->SEditLine->setText(QString("%1").arg(QChar(S)));
+    ui->SEditLine->setText(QString("%1").arg(QChar(S)) + " Down");
 }
 void MainWindow::DChange()
 {
     D = ui->DKey->keySequence()[0];
-    ui->DEditLine->setText(QString("%1").arg(QChar(D)));
+    ui->DEditLine->setText(QString("%1").arg(QChar(D)) + " Right");
 }
 void MainWindow::fullScreenAction()
 {
@@ -197,7 +198,16 @@ void MainWindow::playAction()
     int w = (map_width * GameObject::Width);
     int h = (map_height * GameObject::Width);
     ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/map.txt");
+    if(trueGame == false)
+    {
+        game = new Game(x, y, map_width, map_height, ":/map.txt");
+    }
+    else
+    {
+        delete game;
+        game = new Game(x, y, map_width, map_height, ":/map.txt");
+        trueGame = true;
+    }
     ui->graphicsView->setScene(game);
     score = new QLabel(this);
     win_label =  new QLabel(this);

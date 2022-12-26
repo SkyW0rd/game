@@ -14,7 +14,7 @@ class GameObject : public QGraphicsPixmapItem
 {
 public:
     enum ObjectType {Zombie = 0, Pistol = 1, Knife = 2, Heal = 3, Keys = 4,
-                     Canister = 5, Air = 6, Gun = 7, None = 8, Wall, Player, Ticket, Door, Winplace, Heart};
+                     Canister = 5, Air = 6, Gun = 7, None = 8, Wall, Player, Ticket, Door, Winplace, Heart, button, statebutton};
     enum Dir {Up = 0, Down = 1, Left = 2, Right = 3, Stop = 4};
     static const int Width = 32;
 
@@ -84,6 +84,8 @@ public:
     QVector<QPixmap> animCard[10];
     QVector<QPixmap> animInv[10];
     QVector<QPixmap> animHeart;
+    QVector<QPixmap> animButton;
+    QVector<QPixmap> animStateButton;
     Status status;
 
     void move(int);

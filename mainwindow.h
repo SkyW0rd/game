@@ -42,5 +42,6 @@ private:
     int A = Qt::Key_A;
     int S = Qt::Key_S;
     int D = Qt::Key_D;
+    bool trueGame = false;
 };
 #endif // MAINWINDOW_H

@@ -98,11 +98,14 @@ bool Player::overlapable(int i, int j)
             //game->ticket->cards[i][j]->setAnimTicket(i, j);
             if(game->ticket->cardMap[i][j] != GameObject::Zombie && game->ticket->cardMap[i][j] != GameObject::None)
             {
+               // qDebug () <<
+                game->ticket->cards[game->x_y_StateButton[1][0]][game->x_y_StateButton[1][1]]->setPixmap(game->ticket->animStateButton[1]);
                 game->ticket->cards[i][j]->setAnimTicket(i, j);
                 game->stat = Game::Question;
             }
             else if(game->ticket->cardMap[i][j] == GameObject::Zombie && game->ticket->cards[i][j]->status == Ticket::Hidden)
             {
+                game->ticket->cards[game->x_y_StateButton[0][0]][game->x_y_StateButton[0][1]]->setPixmap(game->ticket->animStateButton[1]);
                 game->ticket->cards[i][j]->setAnimTicket(i, j);
                 QVector<int> tempXY;
                 tempXY.push_back(i);
@@ -113,6 +116,7 @@ bool Player::overlapable(int i, int j)
             }
             else if(game->ticket->cardMap[i][j] == GameObject::Zombie && game->ticket->cardMap[i][j] != GameObject::None)
             {
+                game->ticket->cards[game->x_y_StateButton[0][0]][game->x_y_StateButton[0][1]]->setPixmap(game->ticket->animStateButton[1]);
                 game->stat = Game::MiniGame;
             }
         }
