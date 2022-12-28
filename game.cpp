@@ -583,7 +583,7 @@ void Game::mousePressEvent(QGraphicsSceneMouseEvent *e)
                     break;
             }
             QTimer timer;
-            timer.setInterval(500);
+            timer.setInterval(750);
             QEventLoop loop;
             connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
             timer.start();
